@@ -27,8 +27,8 @@ If a function needs to process data with and without having an already initializ
 async function aFunctionThatReceivesAnOptionalTransaction(trx?: Transaction) {
 	const db = trx || knex.transaction();
 	try {
-		const tempResult = await trx('table').where('property', 'value').select();
-		await someOtherFunction(tempResult, trx);
+		const tempResult = await db('table').where('property', 'value').select();
+		await someOtherFunction(tempResult, db);
 
 		if (!trx) {
 			db.commit();
