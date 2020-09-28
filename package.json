@@ -1,6 +1,6 @@
 {
 	"name": "@cdellacqua/knex-transact",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "transact function that provides a simple mechanism to translate SQL transactions into code",
 	"main": "build/index.js",
 	"types": "build/index.d.ts",
@@ -28,6 +28,7 @@
 	"author": "Carlo Dell'Acqua",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/node": "^14.11.2",
 		"knex": "^0.21.6",
 		"rimraf": "^3.0.2",
 		"typescript": "^4.0.3"
@@ -36,7 +37,6 @@
 		"knex": "^0.21.6"
 	},
 	"dependencies": {
-		"@cdellacqua/serializable-error": "^1.0.0",
-		"@types/node": "^14.11.2"
+		"@cdellacqua/serializable-error": "^1.0.0"
 	}
 }
