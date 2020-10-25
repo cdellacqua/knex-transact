@@ -36,6 +36,6 @@ export async function transact<T>(
 			await transaction.rollback();
 		}
 
-		throw new SerializableError('an error occurred while executing the transaction, rolled back', err);
+		throw new SerializableError('an error occurred while executing the transaction' + (ownTransaction ? ', rolled back' : ''), err);
 	}
 }
