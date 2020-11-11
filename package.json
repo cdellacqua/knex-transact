@@ -36,6 +36,6 @@
 		"knex": "^0.21.6"
 	},
 	"dependencies": {
-		"@cdellacqua/serializable-error": "^1.0.8"
+		"@cdellacqua/serializable-error": "^1.1.0"
 	}
 }
