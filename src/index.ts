@@ -6,6 +6,9 @@ export type NextTransactionCode<T = any> = (trx: Transaction, previousValue?: an
 
 export const config: { knexInstance?: Knex } = {};
 
+export async function transact<T>(provider: TransactionCode<T>, trx?: Transaction): Promise<T>;
+export async function transact<T>(provider: NextTransactionCode[], trx?: Transaction): Promise<T>;
+
 export async function transact<T>(
 	provider: TransactionCode<T> | NextTransactionCode[],
 	trx?: Transaction,
