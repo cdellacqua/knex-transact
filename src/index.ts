@@ -1,17 +1,17 @@
 import { SerializableError } from '@cdellacqua/serializable-error';
-import Knex, { Transaction } from 'knex';
+import { Knex } from 'knex';
 
-export type TransactionCode<T> = (trx: Transaction) => Promise<T>;
-export type NextTransactionCode<T = any> = (trx: Transaction, previousValue?: any) => Promise<T>;
+export type TransactionCode<T> = (trx: Knex.Transaction) => Promise<T>;
+export type NextTransactionCode<T = any> = (trx: Knex.Transaction, previousValue?: any) => Promise<T>;
 
 export const config: { knexInstance?: Knex } = {};
 
-export async function transact<T>(provider: TransactionCode<T>, trx?: Transaction): Promise<T>;
-export async function transact<T>(provider: NextTransactionCode[], trx?: Transaction): Promise<T>;
+export async function transact<T>(provider: TransactionCode<T>, trx?: Knex.Transaction): Promise<T>;
+export async function transact<T>(provider: NextTransactionCode[], trx?: Knex.Transaction): Promise<T>;
 
 export async function transact<T>(
 	provider: TransactionCode<T> | NextTransactionCode[],
-	trx?: Transaction,
+	trx?: Knex.Transaction,
 ): Promise<T> {
 	if (!config.knexInstance) {
 		throw new Error('missing knex instance in config object, try assigning your knex instance to the config.knexInstance property of this package');
