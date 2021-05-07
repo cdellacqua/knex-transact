@@ -8,7 +8,7 @@ To use this function you must first assign config.knex to your knex instance. Fo
 ```
 	import { config } from '@cdellacqua/knex-transact';
 
-	import knex from 'knex';
+	import { knex } from 'knex';
 	
 	const myKnexInstance = knex({
 		// your database configuration
