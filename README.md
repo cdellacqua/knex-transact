@@ -2,6 +2,11 @@
 
 transact function that provides a simple mechanism to translate SQL transactions into code
 
+
+[NPM Package](https://www.npmjs.com/package/@cdellacqua/knex-transact)
+
+`npm install @cdellacqua/knex-transact`
+
 ## How to configure
 
 To use this function you must first assign config.knex to your knex instance. For example:
