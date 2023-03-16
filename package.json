@@ -1,6 +1,6 @@
 {
 	"name": "@cdellacqua/knex-transact",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "transact function that provides a simple mechanism to translate SQL transactions into code",
 	"types": "build/index.d.ts",
 	"main": "build/index.cjs",
