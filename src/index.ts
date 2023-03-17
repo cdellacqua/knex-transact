@@ -13,11 +13,11 @@ export async function transact<T>(
 	provider: TransactionCode<T> | NextTransactionCode[],
 	trx?: Knex.Transaction,
 ): Promise<T> {
-	if (!config.knexInstance) {
+	const transaction = trx || await config.knexInstance?.transaction();
+	if (!transaction) {
 		throw new Error('missing knex instance in config object, try assigning your knex instance to the config.knexInstance property of this package');
 	}
 
-	const transaction = trx || await config.knexInstance.transaction();
 	const ownTransaction = !trx;
 	const providers = Array.isArray(provider) ? provider : [provider];
 
