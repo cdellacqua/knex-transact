@@ -1,21 +1,31 @@
-import { SerializableError } from '@cdellacqua/serializable-error';
-import { Knex } from 'knex';
+import { Knex } from "knex";
 
 export type TransactionCode<T> = (trx: Knex.Transaction) => Promise<T>;
-export type NextTransactionCode<T = any> = (trx: Knex.Transaction, previousValue?: any) => Promise<T>;
+export type NextTransactionCode<T = any> = (
+	trx: Knex.Transaction,
+	previousValue?: any
+) => Promise<T>;
 
 export const config: { knexInstance?: Knex } = {};
 
-export async function transact<T>(provider: TransactionCode<T>, trx?: Knex.Transaction): Promise<T>;
-export async function transact<T>(provider: NextTransactionCode[], trx?: Knex.Transaction): Promise<T>;
+export async function transact<T>(
+	provider: TransactionCode<T>,
+	trx?: Knex.Transaction
+): Promise<T>;
+export async function transact<T>(
+	provider: NextTransactionCode[],
+	trx?: Knex.Transaction
+): Promise<T>;
 
 export async function transact<T>(
 	provider: TransactionCode<T> | NextTransactionCode[],
-	trx?: Knex.Transaction,
+	trx?: Knex.Transaction
 ): Promise<T> {
-	const transaction = trx || await config.knexInstance?.transaction();
+	const transaction = trx || (await config.knexInstance?.transaction());
 	if (!transaction) {
-		throw new Error('missing knex instance in config object, try assigning your knex instance to the config.knexInstance property of this package');
+		throw new Error(
+			"missing knex instance in config object, try assigning your knex instance to the config.knexInstance property of this package"
+		);
 	}
 
 	const ownTransaction = !trx;
@@ -39,6 +49,12 @@ export async function transact<T>(
 			await transaction.rollback();
 		}
 
-		throw new SerializableError('an error occurred while executing the transaction' + (ownTransaction ? ', rolled back' : ''), err);
+		throw new Error(
+			"an error occurred while executing the transaction" +
+				(ownTransaction ? ", rolled back" : ""),
+			{
+				cause: err,
+			}
+		);
 	}
 }
